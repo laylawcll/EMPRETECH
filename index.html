@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empregabilidade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <span class="logo-icon">💼</span>
+                    <h1>EmpreTECH</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="nav-link">Início</a></li>
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#pesquisas" class="nav-link">Pesquisas</a></li>
+                    <li><a href="#mapa" class="nav-link">Mapa de Empregos</a></li>
+                    <li><a href="#estatisticas" class="nav-link">Estatísticas</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h2>Empregabilidade</h2>
+            <p>Conectando talentos a oportunidades </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="btnPesquisadores">Área de Pesquisadores</button>
+                <button class="btn btn-secondary" id="btnMapa">Ver Mapa de Empregos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre o Projeto</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>O Centro de Pesquisas em Empregabilidade é uma iniciativa dedicada ao estudo e análise do mercado de trabalho, desenvolvendo pesquisas científicas que auxiliam na compreensão das dinâmicas de emprego e qualificação profissional.</p>
+                    <p>Nossa missão é fornecer dados precisos e insights valiosos para pesquisadores, formuladores de políticas públicas e a sociedade em geral.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">📊</span>
+                            <h4>Dados Confiáveis</h4>
+                            <p>Base de dados atualizada e metodologia científica</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🔍</span>
+                            <h4>Pesquisa Aplicada</h4>
+                            <p>Estudos que geram impacto real na sociedade</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🌐</span>
+                            <h4>Abordagem Regional</h4>
+                            <p>Análises específicas por região e setor econômico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Área de Pesquisadores -->
+    <section id="pesquisas" class="section researchers-section">
+        <div class="container">
+            <h2 class="section-title">Área para Pesquisadores</h2>
+            <div class="researchers-content">
+                <div class="research-tools">
+                    <div class="tool-card">
+                        <div class="tool-icon">📈</div>
+                        <h3>Base de Dados</h3>
+                        <p>Acesso completo aos dados de empregabilidade</p>
+                        <button class="btn btn-outline" data-tool="dados">Acessar</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📋</div>
+                        <h3>Relatórios</h3>
+                        <p>Relatórios técnicos e análises setoriais</p>
+                        <button class="btn btn-outline" data-tool="relatorios">Download</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🔧</div>
+                        <h3>Ferramentas</h3>
+                        <p>Software e metodologias de pesquisa</p>
+                        <button class="btn btn-outline" data-tool="ferramentas">Utilizar</button>
+                    </div>
+                </div>
+
+                <!-- Login Modal -->
+                <div id="loginModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Acesso de Pesquisador</h3>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="email">E-mail Institucional</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input type="password" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa de Empregos -->
+    <section id="mapa" class="section map-section">
+        <div class="container">
+            <h2 class="section-title">Mapa de Oportunidades</h2>
+            <div class="map-controls">
+                <div class="filter-group">
+                    <label for="setorFiltro">Filtrar por Setor:</label>
+                    <select id="setorFiltro">
+                        <option value="todos">Todos os Setores</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="saude">Saúde</option>
+                        <option value="educacao">Educação</option>
+                        <option value="industria">Indústria</option>
+                        <option value="comercio">Comércio</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="tipoFiltro">Tipo de Vaga:</label>
+                    <select id="tipoFiltro">
+                        <option value="todos">Todos os Tipos</option>
+                        <option value="estagio">Estágio</option>
+                        <option value="clt">CLT</option>
+                        <option value="pj">PJ</option>
+                        <option value="freelancer">Freelancer</option>
+                    </select>
+                </div>
+            </div>
+            <div id="map"></div>
+            <div class="map-legend">
+                <h4>Legenda:</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color tecnologia"></span>
+                        <span>Tecnologia</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color saude"></span>
+                        <span>Saúde</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color educacao"></span>
+                        <span>Educação</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color industria"></span>
+                        <span>Indústria</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color comercio"></span>
+                        <span>Comércio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section id="estatisticas" class="section stats-section">
+        <div class="container">
+            <h2 class="section-title">Estatísticas do Mercado</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="76.5">0</div>
+                    <div class="stat-label">Taxa de Empregabilidade</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="12.3">0</div>
+                    <div class="stat-label">Crescimento Anual</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="45.8">0</div>
+                    <div class="stat-label">Empregos Formais</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="8.2">0</div>
+                    <div class="stat-label">Taxa de Desemprego</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <h4>E-mail</h4>
+                            <p>pesquisa@empregabilidade.org</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(11) 3456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h4>Endereço</h4>
+                            <P>Rua condor, 1145</P><B>Arapongas, PR</B>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Seu e-mail" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Tipo de Contato</option>
+                            <option value="pesquisa">Consulta de Pesquisa</option>
+                            <option value="dados">Solicitação de Dados</option>
+                            <option value="parceria">Proposta de Parceria</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Sua mensagem" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Empregabilidade</h3>
+                    <p>Centro de Pesquisas e Análise do Mercado de Trabalho</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#pesquisas">Pesquisas</a></li>
+                        <li><a href="#mapa">Mapa</a></li>
+                        <li><a href="#estatisticas">Estatísticas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Publicações</a></li>
+                        <li><a href="#">Metodologia</a></li>
+                        <li><a href="#">API de Dados</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Centro de Pesquisas em Empregabilidade. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
